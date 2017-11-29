@@ -95,7 +95,7 @@ public class Game extends JPanel implements Runnable {
                 grid[block.y][block.x].block = null;
                 grid[block.y][block.x].isOccupied = true;
             }
-            ff.createFigure();
+            figure = ff.createFigure();
             placeFigure();
         }
     }
@@ -107,5 +107,11 @@ public class Game extends JPanel implements Runnable {
             }
         }
         return true;
+    }
+    
+    public void clearFigureSpaces(){
+        for (Block block : figure.blocks) {
+            grid[block.y][block.x].setBackground(backgroundColor);
+        }
     }
 }

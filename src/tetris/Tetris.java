@@ -50,7 +50,9 @@ public class Tetris extends JFrame implements ActionListener{
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case VK_UP:
+                    game.clearFigureSpaces();
                     game.figure.rotate();
+                    game.placeFigure();
                     break;
                 case VK_LEFT:
                     game.moveBlocks(LEFT);
