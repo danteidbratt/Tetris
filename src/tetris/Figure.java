@@ -20,7 +20,7 @@ public class Figure {
                 
                 break;
             case L:
-                
+
                 break;
             case REVERSE_L:
                 
