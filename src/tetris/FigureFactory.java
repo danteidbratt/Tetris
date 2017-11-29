@@ -30,10 +30,10 @@ public class FigureFactory {
                 shape = STICK;
                 break;
             case 3:
-                blocks[0] = new Block(1, 6);
-                blocks[1] = new Block(2, 4);
-                blocks[2] = new Block(2, 5);
-                blocks[3] = new Block(2, 6);
+                blocks[0] = new Block(2, 6);
+                blocks[1] = new Block(1, 6);
+                blocks[2] = new Block(2, 4);
+                blocks[3] = new Block(2, 5);
                 shape = L;
                 break;
             case 4:
@@ -58,10 +58,10 @@ public class FigureFactory {
                 shape = REVERSE_Z;
                 break;
             case 7:
-                blocks[0] = new Block(1, 5);
-                blocks[1] = new Block(2, 4);
+                blocks[0] = new Block(2, 6);
+                blocks[1] = new Block(1, 5);
                 blocks[2] = new Block(2, 5);
-                blocks[3] = new Block(2, 6);
+                blocks[3] = new Block(2, 4);
                 shape = T;
                 break;
         }
