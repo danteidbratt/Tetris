@@ -21,8 +21,7 @@ public class Game extends JPanel implements Runnable {
         this.grid = new gridSpace[22][12];
         this.field = new JPanel();
         this.ff = new FigureFactory();
-        ff.createFigure((int)(Math.random() + 0.5));
-        this.figure = ff.getFigure();
+        this.figure = ff.createFigure();
     }
 
     public void setPanel() {
@@ -96,8 +95,7 @@ public class Game extends JPanel implements Runnable {
                 grid[block.y][block.x].block = null;
                 grid[block.y][block.x].isOccupied = true;
             }
-            ff.createFigure((int)(Math.random() + 0.5));
-            ff.getFigure();
+            ff.createFigure();
             placeFigure();
         }
     }

@@ -10,10 +10,8 @@ public class FigureFactory {
 
     }
 
-    public void createFigure(int x) {
-        int preset = (int) (Math.random() * 7 + 1);
-
-        switch (preset) {
+    public Figure createFigure() {
+        switch ((int) (Math.random() * 7 + 1)) {
             case 1:
                 blocks[0] = new Block(1, 5);
                 blocks[2] = new Block(1, 6);
@@ -63,10 +61,6 @@ public class FigureFactory {
 
                 break;
         }
-        figure = new Figure(blocks);
-    }
-
-    public Figure getFigure() {
-        return figure;
+        return new Figure(blocks);
     }
 }
