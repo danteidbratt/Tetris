@@ -12,6 +12,30 @@ public class Figure {
     }
     
     public void rotate(){
+        switch (shape) {
+            case BOX:
+                
+                break;
+            case STICK:
+                
+                break;
+            case L:
+                
+                break;
+            case REVERSE_L:
+                
+                break;
+            case Z:
+                
+                break;
+            case REVERSE_Z:
+                
+                break;
+            case T:
+                
+                break;
+        }
+        
         
     }
 }
