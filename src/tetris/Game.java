@@ -95,6 +95,7 @@ public class Game extends JPanel implements Runnable {
                 grid[block.y][block.x].block = null;
                 grid[block.y][block.x].isOccupied = true;
             }
+            checkForFullLines();
             figure = ff.createFigure();
             placeFigure();
         }
@@ -112,6 +113,27 @@ public class Game extends JPanel implements Runnable {
     public void removeFigure(){
         for (Block block : figure.blocks) {
             grid[block.y][block.x].setBackground(backgroundColor);
+        }
+    }
+    
+    public void checkForFullLines(){
+        for (int i = 1; i < grid.length-1; i++) {
+            boolean clear = true;
+            for (int j = 1; j < grid[i].length-1; j++) {
+                if (!grid[i][j].isOccupied) {
+                    clear = false;
+                }
+            }
+            if (clear) {
+                clearLine(i);
+            }
+        }
+    }
+    
+    public void clearLine(int y){
+        for (int i = 1; i < grid[y].length-1; i++) {
+            grid[y][i].isOccupied = false;
+            grid[y][i].setBackground(backgroundColor);
         }
     }
 }
