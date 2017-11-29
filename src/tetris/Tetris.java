@@ -51,7 +51,9 @@ public class Tetris extends JFrame implements ActionListener{
             switch (e.getKeyCode()) {
                 case VK_UP:
                     game.removeFigure();
-                    game.figure.rotate();
+                    if (game.checkIfRotatable()) {
+                        game.figure.rotate();
+                    }
                     game.placeFigure();
                     break;
                 case VK_LEFT:
