@@ -6,14 +6,16 @@ public class Figure {
     
     Block[] blocks = new Block[4];
     Shape shape;
+    int origoIndex;
     boolean standing;
     
-
-    public Figure(Block[] blocks, Shape shape) {
+    public Figure(Block[] blocks, Shape shape, int origoIndex) {
         this.blocks = blocks;
         this.shape = shape;
         standing = false;
+        this.origoIndex = origoIndex;
     }
+    
     
     public void rotate(){
         switch (shape) {
@@ -39,10 +41,10 @@ public class Figure {
                 }
                 break;
             case L:
-                rotateAroundOrigo(blocks[2]);
+                rotateAroundOrigo();
                 break;
             case REVERSE_L:
-                rotateAroundOrigo(blocks[1]);
+                rotateAroundOrigo();
                 break;
             case Z:
                 if (standing) {
@@ -65,22 +67,22 @@ public class Figure {
                 }
                 break;
             case T:
-                rotateAroundOrigo(blocks[2]);
+                rotateAroundOrigo();
                 break;
         }
         this.standing = !standing;
     }
 
-    private void rotateAroundOrigo(Block block) {
-        int absolutX;
-        int absolutY;
+    private void rotateAroundOrigo() {
         for (int i = 0; i < blocks.length; i++) {
-            absolutX = blocks[i].x - block.x;
-            absolutY = blocks[i].y - block.y;
-            int tempYvalue = blocks[i].y;
-            int tempXvalue = blocks[i].x;
-            blocks[i].x = -absolutY + tempYvalue;
-            blocks[i].y = absolutX + tempXvalue;
+            if(i != origoIndex){
+                int h = blocks[i].x - blocks[origoIndex].x;
+                int v = blocks[i].y - blocks[origoIndex].y;
+                int x = -(h + v); 
+                int y = (h - v); 
+                blocks[i].x += x;
+                blocks[i].y += y;
+            }
         }
     }
 }

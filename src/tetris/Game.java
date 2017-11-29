@@ -109,7 +109,7 @@ public class Game extends JPanel implements Runnable {
         return true;
     }
     
-    public void clearFigureSpaces(){
+    public void removeFigure(){
         for (Block block : figure.blocks) {
             grid[block.y][block.x].setBackground(backgroundColor);
         }
