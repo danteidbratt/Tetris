@@ -89,8 +89,7 @@ public class Game extends JPanel implements Runnable {
                 block.x += x;
             }
             placeFigure();
-        }
-        else if (direction == DOWN) {
+        } else if (direction == DOWN) {
             for (Block block : figure.blocks) {
                 grid[block.y][block.x].block = null;
                 grid[block.y][block.x].isOccupied = true;
@@ -109,11 +108,91 @@ public class Game extends JPanel implements Runnable {
         }
         return true;
     }
-    
-    public void removeFigure(){
+
+    public void removeFigure() {
         for (Block block : figure.blocks) {
             grid[block.y][block.x].setBackground(backgroundColor);
         }
+    }
+
+    public boolean checkIfRotatable() {
+        boolean rotatable = true;
+        switch (figure.shape) {
+            case BOX:
+                break;
+            case STICK:
+                if (figure.standing) {
+                    if (grid[figure.blocks[0].y + 1][figure.blocks[0].x - 1].isOccupied
+                            || grid[figure.blocks[2].y - 1][figure.blocks[2].x + 1].isOccupied
+                            || grid[figure.blocks[3].y - 2][figure.blocks[3].x + 2].isOccupied) {
+                        rotatable = false;
+                    }
+                } else {
+                    if (grid[figure.blocks[0].y - 1][figure.blocks[0].x + 1].isOccupied
+                            || grid[figure.blocks[2].y + 1][figure.blocks[2].x - 1].isOccupied
+                            || grid[figure.blocks[3].y + 2][figure.blocks[3].x - 2].isOccupied) {
+                        rotatable = false;
+                    }
+                }
+                break;
+            case L:
+                if (!rotateAroundOrigoTest()) {
+                    rotatable = false;
+                }
+                break;
+            case REVERSE_L:
+                if (!rotateAroundOrigoTest()) {
+                    rotatable = false;
+                }
+                break;
+            case Z:
+                if (figure.standing) {
+                    if (grid[figure.blocks[3].y + 2][figure.blocks[3].x].isOccupied
+                            || grid[figure.blocks[3].y][figure.blocks[3].x - 2].isOccupied) {
+                        rotatable = false;
+                    }
+                } else {
+                    if (grid[figure.blocks[3].y - 2][figure.blocks[3].x].isOccupied
+                            || grid[figure.blocks[3].y][figure.blocks[3].x + 2].isOccupied) {
+                        rotatable = false;
+                    }
+                }
+                break;
+            case REVERSE_Z:
+                if (figure.standing) {
+                    if (grid[figure.blocks[2].y + 2][figure.blocks[2].x].isOccupied
+                            || grid[figure.blocks[1].y][figure.blocks[1].x + 2].isOccupied) {
+                        rotatable = false;
+                    }
+                } else {
+                    if (grid[figure.blocks[2].y - 2][figure.blocks[2].x].isOccupied
+                            || grid[figure.blocks[1].y][figure.blocks[1].x - 2].isOccupied) {
+                        rotatable = false;
+                    }
+                }
+                break;
+            case T:
+                if (!rotateAroundOrigoTest()) {
+                    rotatable = false;
+                }
+                break;
+        }
+        return rotatable;
+    }
+
+    private boolean rotateAroundOrigoTest() {
+        for (int i = 0; i < figure.blocks.length; i++) {
+            if (i != figure.origoIndex) {
+                int h = figure.blocks[i].x - figure.blocks[figure.origoIndex].x;
+                int v = figure.blocks[i].y - figure.blocks[figure.origoIndex].y;
+                int x = -(h + v);
+                int y = (h - v);
+                if (grid[figure.blocks[i].y + y][figure.blocks[i].x + x].isOccupied) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     
     public void checkForFullLines(){
