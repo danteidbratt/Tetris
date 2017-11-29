@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class Block {
     
-    Color color;
+    public Color color;
     int x;
     int y;
 

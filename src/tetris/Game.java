@@ -221,12 +221,10 @@ public class Game extends JPanel implements Runnable {
     public void fall(int y){
         for (; y > 1; y--) {
             for (int j = 1; j < grid[y].length-1; j++) {
-                grid[y][j].block = grid[y-1][j].block;
-                grid[y][j].isOccupied = grid[y-1][j].isOccupied;
+                grid[y][j].block = new Block(y, j, grid[y-1][j].block.color);
                 grid[y][j].adaptToBlock();
                 grid[y-1][j].block = null;
-                grid[y-1][j].isOccupied = false;
-                grid[y-1][j].setBackground(backgroundColor);
+                grid[y-1][j].adaptToBlock();
             }
         }
     }

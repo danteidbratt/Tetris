@@ -25,9 +25,11 @@ public class gridSpace extends JLabel {
     public void adaptToBlock(){
         if (block != null) {
             setBackground(block.color);
+            isOccupied = false;
         }
         else {
             setBackground(backgroundColor);
+            isOccupied = true;
         }
     }
 }
