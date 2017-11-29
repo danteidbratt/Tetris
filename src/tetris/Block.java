@@ -8,8 +8,8 @@ public class Block {
     int x;
     int y;
 
-    public Block(int y, int x) {
-        color = Color.WHITE;
+    public Block(int y, int x, Color color) {
+        this.color = color;
         this.y = y;
         this.x = x;
     }

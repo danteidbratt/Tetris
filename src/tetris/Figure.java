@@ -1,5 +1,6 @@
 package tetris;
 
+import java.awt.Color;
 import static tetris.Shape.*;
 
 public class Figure {
@@ -7,13 +8,14 @@ public class Figure {
     Block[] blocks = new Block[4];
     Shape shape;
     int origoIndex;
+    Color color;
     boolean standing;
     
     public Figure(Block[] blocks, Shape shape, int origoIndex) {
         this.blocks = blocks;
         this.shape = shape;
-        standing = false;
         this.origoIndex = origoIndex;
+        standing = false;
     }
     
     
