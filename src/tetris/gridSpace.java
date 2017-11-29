@@ -13,6 +13,7 @@ public class gridSpace extends JLabel {
 
     public gridSpace() {
         this.isOccupied = false;
+        this.block = null;
         setBackground(backgroundColor);
         setOpaque(true);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
