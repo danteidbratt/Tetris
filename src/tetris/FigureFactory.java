@@ -28,7 +28,7 @@ public class FigureFactory {
                 break;
             case 2:
                 shape = STICK;
-                color = Color.ORANGE;
+                color = new Color(255, 102, 0);
                 blocks[0] = new Block(1, 4, shape, color);
                 blocks[1] = new Block(1, 5, shape, color);
                 blocks[2] = new Block(1, 6, shape, color);
@@ -46,7 +46,7 @@ public class FigureFactory {
             case 4:
                 shape = REVERSE_L;
                 origoIndex = 2;
-                color = Color.GREEN;
+                color = new Color(0, 204, 0);
                 blocks[0] = new Block(1, 4, shape, color);
                 blocks[1] = new Block(2, 4, shape, color);
                 blocks[2] = new Block(2, 5, shape, color);

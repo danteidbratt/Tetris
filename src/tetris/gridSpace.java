@@ -28,13 +28,13 @@ public class gridSpace extends JLabel {
                 occupiedColor = Color.RED;
                 break;
             case STICK:
-                occupiedColor = Color.ORANGE;
+                occupiedColor = new Color(255, 102, 0);
                 break;
             case L:
                 occupiedColor = Color.CYAN;
                 break;
             case REVERSE_L:
-                occupiedColor = Color.GREEN;
+                occupiedColor = new Color(0, 204, 0);
                 break;
             case Z:
                 occupiedColor = Color.YELLOW;
