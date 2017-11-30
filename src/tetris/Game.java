@@ -146,12 +146,12 @@ public class Game extends JPanel implements Runnable {
             case Z:
                 if (figure.standing) {
                     if (grid[figure.blocks[3].y + 2][figure.blocks[3].x].isOccupied
-                            || grid[figure.blocks[3].y][figure.blocks[3].x - 2].isOccupied) {
+                            || grid[figure.blocks[0].y][figure.blocks[3].x - 2].isOccupied) {
                         rotatable = false;
                     }
                 } else {
                     if (grid[figure.blocks[3].y - 2][figure.blocks[3].x].isOccupied
-                            || grid[figure.blocks[3].y][figure.blocks[3].x + 2].isOccupied) {
+                            || grid[figure.blocks[3].y - 1][figure.blocks[3].x].isOccupied) {
                         rotatable = false;
                     }
                 }
