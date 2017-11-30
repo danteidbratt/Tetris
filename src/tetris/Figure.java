@@ -17,6 +17,14 @@ public class Figure {
         this.origoIndex = origoIndex;
         standing = false;
     }
+
+    Figure(Figure element) {
+        this.blocks = element.blocks;
+        this.shape = element.shape;
+        this.origoIndex = element.origoIndex;
+        this.color = element.color;
+        this.standing = element.standing;
+    }
     
     
     public void rotate(){

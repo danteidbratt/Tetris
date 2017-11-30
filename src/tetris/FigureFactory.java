@@ -6,7 +6,6 @@ import static tetris.Shape.*;
 public class FigureFactory {
 
     Block[] blocks;
-    Figure figure;
     Shape shape;
     int origoIndex;
     Color color;
@@ -17,6 +16,7 @@ public class FigureFactory {
     }
 
     public Figure createFigure() {
+        shape = null;
         switch ((int) (Math.random() * 7 + 1)) {
             case 1:
                 shape = BOX;
