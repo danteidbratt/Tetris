@@ -12,7 +12,8 @@ public class Tetris extends JFrame implements ActionListener{
     
     public void go(){
         setVisible(true);
-        setSize(350, 700);
+        setTitle("Ultimate Tetris");
+        setSize(550, 700);
         addKeyListener(ka);
         menu.setPanel();
         menu.startButton.addActionListener(this);

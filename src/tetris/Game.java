@@ -3,6 +3,8 @@ package tetris;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.*;
 import static tetris.Direction.*;
@@ -13,9 +15,30 @@ public class Game extends JPanel implements Runnable {
     Figure figure;
     JPanel field;
     gridSpace[][] grid;
+    
+    JPanel sideBar = new JPanel();
+    JLabel topSpace = new JLabel("");
+    JLabel leftSpace = new JLabel("");
+    JLabel rightSpace = new JLabel("");
+    JLabel botSpace = new JLabel("");
+    
+    JPanel centerPanel = new JPanel();
+    JPanel nextFigurePanel = new JPanel();
+    gridSpace[][] nextFigureGrid = new gridSpace[4][4];
+    JPanel statsPanel = new JPanel();
+    JLabel levelLabel = new JLabel("Level: 7");
+    JLabel scoreLabel = new JLabel("Score: 666");
+    JLabel tetrisCounterLabel = new JLabel("Tetris: 3");
+    JLabel[] statsLabels = {levelLabel, scoreLabel, tetrisCounterLabel};
+    JPanel buttonPanel = new JPanel();
+    JButton pauseButton = new JButton("Paus");
+    JButton quitButton = new JButton("Quit");
+    JLabel[] spaces = {topSpace, leftSpace, rightSpace, botSpace, scoreLabel};
+    
     Thread gravity = new Thread(this);
 
     Color backgroundColor = new Color(50, 50, 50);
+    Color sideBarColor = new Color(30, 30, 30);
 
     public Game() {
         this.grid = new gridSpace[22][12];
@@ -26,7 +49,64 @@ public class Game extends JPanel implements Runnable {
 
     public void setPanel() {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(350, 700));
+        setPreferredSize(new Dimension(550, 700));
+        
+        sideBar.setLayout(new BorderLayout());
+        sideBar.setBackground(new Color(30, 30, 30));
+        sideBar.setPreferredSize(new Dimension(200, 0));
+        sideBar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        for (int i = 0; i < spaces.length; i++) {
+            spaces[i].setBackground(sideBarColor);
+            spaces[i].setOpaque(true);
+            spaces[i].setPreferredSize(new Dimension(20, 20));
+        }
+        
+        centerPanel.setLayout(new BorderLayout(0, 40));
+        centerPanel.setBackground(sideBarColor);
+        
+        nextFigurePanel.setLayout(new GridLayout(4, 4));
+        nextFigurePanel.setBackground(Color.BLACK);
+        nextFigurePanel.setPreferredSize(new Dimension(0, 150));
+        nextFigurePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        
+        for (int i = 0; i < nextFigureGrid.length; i++) {
+            for (int j = 0; j < nextFigureGrid[i].length; j++) {
+                nextFigureGrid[i][j] = new gridSpace();
+                nextFigureGrid[i][j].setLabel();
+                nextFigurePanel.add(nextFigureGrid[i][j]);
+            }
+        }
+        
+        statsPanel.setLayout(new GridLayout(3, 1, 0, 10));
+        statsPanel.setBackground(sideBarColor);
+        
+        for (int i = 0; i < statsLabels.length; i++) {
+            statsLabels[i].setBackground(new Color(60, 60, 60));
+            statsLabels[i].setOpaque(true);
+            statsLabels[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+            statsLabels[i].setFont(new Font("SansSerif", 1 , 20));
+            statsLabels[i].setHorizontalAlignment(SwingConstants.CENTER);
+            statsPanel.add(statsLabels[i]);
+        }
+        
+        buttonPanel.setLayout(new GridLayout(2, 1, 0, 5));
+        buttonPanel.setBackground(sideBarColor);
+        buttonPanel.setPreferredSize(new Dimension(0, 150));
+        pauseButton.setFont(new Font("SansSerif", 3, 20));
+        quitButton.setFont(new Font("SansSerif", 3, 20));
+        buttonPanel.add(pauseButton);
+        buttonPanel.add(quitButton);
+        
+        centerPanel.add(nextFigurePanel, BorderLayout.NORTH);
+        centerPanel.add(statsPanel, BorderLayout.CENTER);
+        centerPanel.add(buttonPanel, BorderLayout.SOUTH);
+        
+        sideBar.add(centerPanel, BorderLayout.CENTER);
+        sideBar.add(topSpace, BorderLayout.NORTH);
+        sideBar.add(leftSpace, BorderLayout.WEST);
+        sideBar.add(rightSpace, BorderLayout.EAST);
+        sideBar.add(botSpace, BorderLayout.SOUTH);
+        
         field.setLayout(new GridLayout(20, 10));
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
@@ -40,6 +120,7 @@ public class Game extends JPanel implements Runnable {
                 }
             }
         }
+        add(sideBar, BorderLayout.WEST);
         add(field, BorderLayout.CENTER);
     }
 
@@ -53,7 +134,7 @@ public class Game extends JPanel implements Runnable {
     public void run() {
         try {
             while (true) {
-                Thread.sleep(300);
+                Thread.sleep(2000);
                 moveBlocks(DOWN);
                 revalidate();
                 repaint();
