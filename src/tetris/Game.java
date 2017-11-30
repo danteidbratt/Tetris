@@ -12,8 +12,6 @@ import static tetris.Direction.*;
 public class Game extends JPanel implements Runnable {
 
     FigureFactory ff;
-    FigureFactory gf;
-    FigureFactory cf;
     Queue<Figure> figureQueue;
     Figure figure;
     JPanel field;
@@ -48,10 +46,9 @@ public class Game extends JPanel implements Runnable {
         this.grid = new gridSpace[22][12];
         this.field = new JPanel();
         this.ff = new FigureFactory();
-        this.gf = new FigureFactory();
-        this.cf = new FigureFactory();
         figureQueue.add(new Figure(ff.createFigure()));
-        figureQueue.add(new Figure(gf.createFigure()));
+        ff = new FigureFactory();
+        figureQueue.add(new Figure(ff.createFigure()));
         this.figure = figureQueue.remove();
     }
 
