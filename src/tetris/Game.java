@@ -207,9 +207,19 @@ public class Game extends JPanel implements Runnable {
         }
     }
     
-    public void clearLine(int y){
-        for (int i = 1; i < grid[y].length-1; i++) {
-            grid[y][i].removeBlock();
+    public void clearLine(int lineToClear){
+        for (int i = 1; i < grid[lineToClear].length-1; i++) {
+            grid[lineToClear][i].removeBlock();
+        }
+        fall(lineToClear);
+    }
+    
+    public void fall(int clearedLine){
+        for (int i = clearedLine; i > 2; i--) {
+            for (int j = 1; j < grid[i].length-1; j++) {
+                grid[i][j].setBackground(grid[i-1][j].getBackground());
+                grid[i][j].isOccupied = grid[i-1][j].isOccupied;
+            }
         }
     }
 }
