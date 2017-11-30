@@ -32,6 +32,7 @@ public class Game extends JPanel implements Runnable {
             for (int j = 0; j < grid[i].length; j++) {
                 if (i > 0 && i < grid.length - 1 && j > 0 && j < grid[i].length - 1) {
                     grid[i][j] = new gridSpace();
+                    grid[i][j].setLabel();
                     field.add(grid[i][j]);
                 } else {
                     grid[i][j] = new gridSpace();
@@ -44,8 +45,7 @@ public class Game extends JPanel implements Runnable {
 
     public void placeFigure() {
         for (Block block : figure.blocks) {
-            grid[block.y][block.x].block = block;
-            grid[block.y][block.x].adaptToBlock();
+            grid[block.y][block.x].addBlock(block);
         }
     }
 
@@ -53,7 +53,7 @@ public class Game extends JPanel implements Runnable {
     public void run() {
         try {
             while (true) {
-                Thread.sleep(140);
+                Thread.sleep(300);
                 moveBlocks(DOWN);
                 revalidate();
                 repaint();
@@ -84,15 +84,13 @@ public class Game extends JPanel implements Runnable {
         if (isMovable(y, x)) {
             for (Block block : figure.blocks) {
                 grid[block.y][block.x].removeBlock();
-                grid[block.y][block.x].adaptToBlock();
                 block.y += y;
                 block.x += x;
             }
             placeFigure();
         } else if (direction == DOWN) {
             for (Block block : figure.blocks) {
-                grid[block.y][block.x].block = null;
-                grid[block.y][block.x].isOccupied = true;
+                grid[block.y][block.x].dropBlock();
             }
             checkForFullLines();
             figure = ff.createFigure();
@@ -211,9 +209,7 @@ public class Game extends JPanel implements Runnable {
     
     public void clearLine(int y){
         for (int i = 1; i < grid[y].length-1; i++) {
-            grid[y][i].isOccupied = false;
-            grid[y][i].block = null;
-            grid[y][i].setBackground(backgroundColor);
+            grid[y][i].removeBlock();
         }
     }
 }

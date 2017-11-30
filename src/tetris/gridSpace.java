@@ -7,28 +7,49 @@ import javax.swing.JLabel;
 public class gridSpace extends JLabel {
     
     public boolean isOccupied;
-    public Block block;
-    
     Color backgroundColor = new Color(50, 50, 50);
+    Color occupiedColor;
 
-    public gridSpace() {
+    public void setLabel(){
         this.isOccupied = false;
-        this.block = null;
         setBackground(backgroundColor);
         setOpaque(true);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
     }
     
     public void removeBlock(){
-        block = null;
+        isOccupied = false;
+        setBackground(backgroundColor);
     }
     
-    public void adaptToBlock(){
-        if (block != null) {
-            setBackground(block.color);
+    public void addBlock(Block block ){
+        switch (block.partOf) {
+            case BOX:
+                occupiedColor = Color.RED;
+                break;
+            case STICK:
+                occupiedColor = Color.ORANGE;
+                break;
+            case L:
+                occupiedColor = Color.CYAN;
+                break;
+            case REVERSE_L:
+                occupiedColor = Color.GREEN;
+                break;
+            case Z:
+                occupiedColor = Color.YELLOW;
+                break;
+            case REVERSE_Z:
+                occupiedColor = new Color(153, 50, 255);
+                break;
+            case T:
+                occupiedColor = Color.MAGENTA;
+                break;
         }
-        else {
-            setBackground(backgroundColor);
-        }
+        setBackground(occupiedColor);
+    }
+    
+    public void dropBlock(){
+        isOccupied = true;
     }
 }

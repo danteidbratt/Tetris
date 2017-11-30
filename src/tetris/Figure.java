@@ -22,7 +22,6 @@ public class Figure {
     public void rotate(){
         switch (shape) {
             case BOX:
-                
                 break;
             case STICK:
                 if (standing) {
