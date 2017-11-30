@@ -16,6 +16,7 @@ public class FigureFactory {
     }
 
     public Figure createFigure() {
+        shape = null;
         switch ((int) (Math.random() * 7 + 1)) {
             case 1:
                 shape = BOX;

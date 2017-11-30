@@ -12,6 +12,8 @@ import static tetris.Direction.*;
 public class Game extends JPanel implements Runnable {
 
     FigureFactory ff;
+    FigureFactory gf;
+    FigureFactory cf;
     Queue<Figure> figureQueue;
     Figure figure;
     JPanel field;
@@ -46,7 +48,10 @@ public class Game extends JPanel implements Runnable {
         this.grid = new gridSpace[22][12];
         this.field = new JPanel();
         this.ff = new FigureFactory();
-        figureQueue.add(ff.createFigure());
+        this.gf = new FigureFactory();
+        this.cf = new FigureFactory();
+        figureQueue.add(new Figure(ff.createFigure()));
+        figureQueue.add(new Figure(gf.createFigure()));
         this.figure = figureQueue.remove();
     }
 
@@ -135,8 +140,10 @@ public class Game extends JPanel implements Runnable {
 
     @Override
     public void run() {
+        PlaceNextFigure();
         try {
             while (true) {
+                System.out.println(figureQueue.size());
                 Thread.sleep(2000);
                 moveBlocks(DOWN);
                 revalidate();
@@ -177,9 +184,10 @@ public class Game extends JPanel implements Runnable {
                 grid[block.y][block.x].dropBlock();
             }
             checkForFullLines();
+            ff = new FigureFactory();
             figureQueue.add(ff.createFigure());
             figure = figureQueue.remove();
-//            PlaceNextFigure();
+            PlaceNextFigure();
             placeFigure();
         }
     }
@@ -285,7 +293,7 @@ public class Game extends JPanel implements Runnable {
                 space.removeBlock();
             }
         }
-        for (Block theblock : figureQueue.peek().blocks) {
+        for (Block theblock : new Figure(figureQueue.element()).blocks) {
             nextFigureGrid[theblock.y][theblock.x - 4].showBlock(theblock);
         }
     }
