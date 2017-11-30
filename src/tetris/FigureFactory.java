@@ -6,7 +6,6 @@ import static tetris.Shape.*;
 public class FigureFactory {
 
     Block[] blocks;
-    Figure figure;
     Shape shape;
     int origoIndex;
     Color color;
