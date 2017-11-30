@@ -27,21 +27,30 @@ public class Game extends JPanel implements Runnable {
     JPanel nextFigurePanel = new JPanel();
     gridSpace[][] nextFigureGrid = new gridSpace[4][4];
     JPanel statsPanel = new JPanel();
-    JLabel levelLabel = new JLabel("Level: 7");
-    JLabel scoreLabel = new JLabel("Score: 666");
-    JLabel tetrisCounterLabel = new JLabel("Tetris: 3");
-    JLabel[] statsLabels = {levelLabel, scoreLabel, tetrisCounterLabel};
+    JLabel levelLabel = new JLabel("Level: 1");
+    JLabel scoreLabel = new JLabel("Score:");
+    JLabel linesLabel = new JLabel("Lines: 0");
+    JLabel[] statsLabels = {levelLabel, scoreLabel, linesLabel};
     JPanel buttonPanel = new JPanel();
     JButton pauseButton = new JButton("Paus");
     JButton quitButton = new JButton("Quit");
     JLabel[] spaces = {topSpace, leftSpace, rightSpace, botSpace, scoreLabel};
 
-    Thread gravity = new Thread(this);
+    Thread gravity;
+    int fps;
+    int levelingCounter;
+    int level;
+    int lines;
 
     Color backgroundColor = new Color(50, 50, 50);
     Color sideBarColor = new Color(30, 30, 30);
 
     public Game() {
+        this.levelingCounter = 0;
+        this.gravity = new Thread(this);
+        fps = 4;
+        level = 0;
+        lines = 0;
         figureQueue = new LinkedList<>();
         this.grid = new gridSpace[22][12];
         this.field = new JPanel();
@@ -141,7 +150,7 @@ public class Game extends JPanel implements Runnable {
         try {
             while (true) {
                 System.out.println(figureQueue.size());
-                Thread.sleep(2000);
+                Thread.sleep(1000/fps);
                 moveBlocks(DOWN);
                 revalidate();
                 repaint();
@@ -314,6 +323,10 @@ public class Game extends JPanel implements Runnable {
             grid[lineToClear][i].removeBlock();
         }
         fall(lineToClear);
+        linesLabel.setText("Lines: " + (++lines));
+        if (++levelingCounter > 9) {
+            increaseFPS();
+        }
     }
 
     public void fall(int clearedLine) {
@@ -323,5 +336,11 @@ public class Game extends JPanel implements Runnable {
                 grid[i][j].isOccupied = grid[i - 1][j].isOccupied;
             }
         }
+    }
+
+    private void increaseFPS() {
+        fps += 2;
+        levelingCounter = levelingCounter % 10;
+        levelLabel.setText("Level: " + (++level));
     }
 }
