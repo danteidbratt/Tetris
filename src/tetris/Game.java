@@ -45,7 +45,7 @@ public class Game extends JPanel implements Runnable {
 
     public void placeFigure() {
         for (Block block : figure.blocks) {
-            grid[block.y][block.x].addBlock(block);
+            grid[block.y][block.x].showBlock(block);
         }
     }
 

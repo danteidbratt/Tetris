@@ -22,7 +22,7 @@ public class gridSpace extends JLabel {
         setBackground(backgroundColor);
     }
     
-    public void addBlock(Block block ){
+    public void showBlock(Block block ){
         switch (block.partOf) {
             case BOX:
                 occupiedColor = Color.RED;
