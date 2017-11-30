@@ -47,7 +47,6 @@ public class Game extends JPanel implements Runnable {
         this.field = new JPanel();
         this.ff = new FigureFactory();
         figureQueue.add(ff.createFigure());
-        figureQueue.add(ff.createFigure());
         this.figure = figureQueue.remove();
     }
 
@@ -136,7 +135,6 @@ public class Game extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        PlaceNextFigure();
         try {
             while (true) {
                 Thread.sleep(2000);
@@ -181,7 +179,7 @@ public class Game extends JPanel implements Runnable {
             checkForFullLines();
             figureQueue.add(ff.createFigure());
             figure = figureQueue.remove();
-            PlaceNextFigure();
+//            PlaceNextFigure();
             placeFigure();
         }
     }
